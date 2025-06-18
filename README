@@ -1,0 +1,11 @@
+# Step 1: Cloner le repo
+git clone <https://github.com/PathMan21/Green-Prompt.git>
+
+# Step 2: Navigate to the project directory.
+cd <Green-Prompt>
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
