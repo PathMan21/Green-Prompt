@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Prompt - Impact de votre requête</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FEFAE0 0%, #E9EDC9 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #CCD5AE;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .header:hover {
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .header-text h1 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+
+        .header-text h1:hover {
+            color: #1a252f;
+        }
+
+        .header-text .slogan {
+            color: #5a6b47;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 0.2rem;
+        }
+
+        .back-button {
+            background-color: #D4A373;
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2rem;
+            color: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-button:hover {
+            background-color: #c4946a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .back-button:active {
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .query-display {
+            background-color: #FAEDCD;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .query-display:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .query-display h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 300;
+        }
+
+        .query-text {
+            color: #5a6b47;
+            font-size: 1.2rem;
+            font-style: italic;
+            background-color: #FEFAE0;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid #D4A373;
+            transition: all 0.3s ease;
+        }
+
+        .query-text:hover {
+            background-color: #ffffff;
+            border-left-width: 8px;
+            transform: translateX(5px);
+        }
+
+        .impact-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-card {
+            background-color: #E9EDC9;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .impact-card:hover {
+            background-color: #d8e3b5;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+        }
+
+        .impact-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .impact-card:hover h3 {
+            color: #1a252f;
+        }
+
+        .impact-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #D4A373;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover .impact-number {
+            color: #c4946a;
+            transform: scale(1.1);
+        }
+
+        .impact-unit {
+            color: #5a6b47;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
+            font-weight: 300;
+        }
+
+        .impact-description {
+            color: #5a6b47;
+            font-size: 1rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .impact-card:hover .impact-description {
+            color: #4a5a37;
+        }
+
+        .article-section {
+            background-color: #FAEDCD;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .article-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        }
+
+        .article-section h2 {
+            color: #2c3e50;
+            margin-bottom: 2.5rem;
+            font-size: 2.2rem;
+            text-align: center;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .article-section h2:hover {
+            color: #1a252f;
+        }
+
+        .article-content {
+            color: #5a6b47;
+            font-size: 1.1rem;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        .article-content h3 {
+            color: #2c3e50;
+            margin: 2.5rem 0 1.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .article-content h3:hover {
+            color: #D4A373;
+            transform: translateX(10px);
+        }
+
+        .article-content p {
+            margin-bottom: 1.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .article-content p:hover {
+            color: #4a5a37;
+        }
+
+        .highlight {
+            background-color: #FEFAE0;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #D4A373;
+            margin: 2.5rem 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .highlight:hover {
+            background-color: #ffffff;
+            border-left-width: 8px;
+            transform: translateX(8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .stat-item {
+            background-color: #E9EDC9;
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-item:hover {
+            background-color: #d8e3b5;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #D4A373;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover .stat-number {
+            color: #c4946a;
+            transform: scale(1.1);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #5a6b47;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .stat-item:hover .stat-label {
+            color: #4a5a37;
+        }
+
+        .article-content ul {
+            transition: all 0.3s ease;
+        }
+
+        .article-content ul:hover {
+            transform: translateX(10px);
+        }
+
+        .article-content li {
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .article-content li:hover {
+            color: #D4A373;
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .header-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .header-text .slogan {
+                font-size: 0.8rem;
+            }
+            
+            .impact-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .query-display {
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .article-section {
+                padding: 2rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="/lovable-uploads/c855f579-c210-4050-8368-19bd33669c79.png" alt="Green Prompt Logo" class="logo">
+            <div class="header-text">
+                <h1>Green Prompt</h1>
+                <p class="slogan">Un clic pour toi, une claque pour la planète</p>
+            </div>
+        </div>
+        <a href="index.html" class="back-button">← Nouvelle question</a>
+    </div>
+
+    <div class="container">
+        <div class="query-display">
+            <h2>Votre question :</h2>
+            <div class="query-text" id="queryText">
+                Chargement de votre question...
+            </div>
+        </div>
+
+        <div class="impact-section">
+            <div class="impact-card">
+                <h3>⚡ Consommation énergétique</h3>
+                <div class="impact-number" id="energyNumber">2.9</div>
+                <div class="impact-unit">Wh (Watt-heures)</div>
+                <div class="impact-description">Équivalent à allumer une ampoule LED pendant 3 heures</div>
+            </div>
+
+            <div class="impact-card">
+                <h3>🌍 Émissions CO₂</h3>
+                <div class="impact-number" id="co2Number">1.2</div>
+                <div class="impact-unit">g de CO₂</div>
+                <div class="impact-description">Équivalent à 5 mètres parcourus en voiture</div>
+            </div>
+
+            <div class="impact-card">
+                <h3>💧 Consommation d'eau</h3>
+                <div class="impact-number" id="waterNumber">0.5</div>
+                <div class="impact-unit">litres</div>
+                <div class="impact-description">Nécessaire pour refroidir les serveurs</div>
+            </div>
+        </div>
+
+        <div class="article-section">
+            <h2>🌿 L'Impact Écologique de l'Intelligence Artificielle</h2>
+            
+            <div class="article-content">
+                <p>Votre simple question vient de déclencher une série de calculs complexes dans des centres de données à travers le monde. Bien que cela puisse sembler anodin, chaque interaction avec l'IA a un coût environnemental réel et mesurable.</p>
+
+                <h3>🏭 Les centres de données : des géants énergétiques</h3>
+                <p>Les centres de données qui alimentent l'IA consomment actuellement environ <strong>1% de l'électricité mondiale</strong>. Pour traiter votre requête, des milliers de processeurs spécialisés (GPU) ont travaillé en parallèle, chacun consommant autant d'énergie qu'un four électrique en fonctionnement.</p>
+
+                <div class="highlight">
+                    <strong>Saviez-vous que ?</strong> Une seule requête à ChatGPT consomme en moyenne 10 fois plus d'énergie qu'une recherche Google classique. Votre question a nécessité l'équivalent énergétique de charger votre smartphone 2 fois.
+                </div>
+
+                <h3>♻️ L'empreinte carbone cachée</h3>
+                <p>Au-delà de la consommation directe, il faut considérer :</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">285 kg</span>
+                        <span class="stat-label">CO₂ pour fabriquer un GPU</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">300 000</span>
+                        <span class="stat-label">litres d'eau pour un centre de données/jour</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">78%</span>
+                        <span class="stat-label">de l'empreinte provient de l'entraînement</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">2030</span>
+                        <span class="stat-label">l'IA pourrait représenter 8% de l'électricité mondiale</span>
+                    </div>
+                </div>
+
+                <h3>🌊 La consommation d'eau : l'impact oublié</h3>
+                <p>Pour maintenir les serveurs à température optimale, les centres de données utilisent d'énormes quantités d'eau. Votre requête a nécessité l'équivalent d'une petite bouteille d'eau pour le refroidissement des équipements.</p>
+
+                <h3>🚀 L'entraînement des modèles : le vrai coût</h3>
+                <p>Bien que votre requête individuelle ait un impact limité, l'entraînement du modèle d'IA qui vous a répondu a représenté un coût environnemental considérable :</p>
+                
+                <div class="highlight">
+                    L'entraînement de GPT-3 a émis environ <strong>552 tonnes de CO₂</strong>, soit l'équivalent de 123 voitures parcourant 15 000 km chacune, ou la consommation électrique de 104 foyers américains pendant un an.
+                </div>
+
+                <h3>🌱 Vers une IA plus verte</h3>
+                <p>Heureusement, des solutions émergent :</p>
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li><strong>Optimisation des algorithmes</strong> pour réduire la puissance de calcul nécessaire</li>
+                    <li><strong>Utilisation d'énergies renouvelables</strong> dans les centres de données</li>
+                    <li><strong>Amélioration de l'efficacité énergétique</strong> des processeurs</li>
+                    <li><strong>Techniques de refroidissement innovantes</strong> utilisant moins d'eau</li>
+                </ul>
+
+                <h3>🤔 Comment agir en tant qu'utilisateur ?</h3>
+                <p>Vous pouvez contribuer à réduire l'impact environnemental de l'IA :</p>
+                <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                    <li>Posez des questions précises et réfléchies</li>
+                    <li>Évitez les requêtes répétitives ou inutiles</li>
+                    <li>Privilégiez les recherches simples pour les informations basiques</li>
+                    <li>Sensibilisez votre entourage à l'impact du numérique</li>
+                </ul>
+
+                <div class="highlight">
+                    <strong>L'impact de vos habitudes :</strong> Si vous posiez 10 questions par jour à une IA, cela représenterait annuellement 10,6 kWh d'électricité et 4,4 kg de CO₂ - soit l'équivalent de 18 km en voiture thermique.
+                </div>
+
+                <p>L'intelligence artificielle représente une révolution technologique majeure avec un potentiel énorme pour résoudre certains défis environnementaux. Cependant, il est crucial de développer et d'utiliser cette technologie de manière responsable, en gardant à l'esprit son impact écologique réel.</p>
+
+                <p><em>Chaque question compte. Chaque réponse a un coût. Utilisons l'IA avec conscience et responsabilité pour construire un avenir numérique durable.</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Récupérer la requête stockée et l'afficher
+        window.onload = function() {
+            const userQuery = localStorage.getItem('userQuery');
+            if (userQuery) {
+                document.getElementById('queryText').textContent = userQuery;
+                
+                // Simuler différents impacts basés sur la longueur de la requête
+                const queryLength = userQuery.length;
+                const baseEnergy = 2.9;
+                const baseCO2 = 1.2;
+                const baseWater = 0.5;
+                
+                // Ajuster les valeurs en fonction de la complexité (longueur) de la requête
+                const complexityFactor = 1 + (queryLength / 200);
+                
+                document.getElementById('energyNumber').textContent = (baseEnergy * complexityFactor).toFixed(1);
+                document.getElementById('co2Number').textContent = (baseCO2 * complexityFactor).toFixed(1);
+                document.getElementById('waterNumber').textContent = (baseWater * complexityFactor).toFixed(1);
+            } else {
+                document.getElementById('queryText').textContent = "Aucune question trouvée. Retournez à l'accueil pour poser une question.";
+            }
+        };
+    </script>
+</body>
+</html>
