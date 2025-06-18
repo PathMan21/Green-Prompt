@@ -1,11 +1,79 @@
-# Step 1: Cloner le repo
-git clone <https://github.com/PathMan21/Green-Prompt.git>
+# 🌿 GreenPrompt
 
-# Step 2: Navigate to the project directory.
-cd <Green-Prompt>
+**GreenPrompt** est un projet web critique et interactif qui interroge l’impact écologique de l’intelligence artificielle générative.  
+Derrière chaque prompt se cache un coût invisible : énergie, émissions de CO₂, consommation de ressources.  
+Notre objectif : **sensibiliser** les utilisateurs à cet impact, et **encourager un usage plus responsable** de l’IA.
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## 🚀 Objectifs du projet
+
+- 💡 **Écologique** : révéler l’empreinte carbone cachée des requêtes IA.
+- 🤖 **Technologique** : illustrer concrètement comment une simple conversation peut consommer de l'énergie.
+- 🧠 **Pédagogique** : favoriser la réflexion critique sur nos usages numériques, même les plus modernes.
+- 👥 **Collaboratif** : conçu en équipe dans le cadre d’un hackathon de 3h.
+
+---
+
+## 🧩 Fonctionnalités
+
+- ✍️ Génération de prompts simulés et estimation de leur coût écologique (Wh + CO₂).
+- 📊 Affichage d'infographies comparatives (IA vs autres activités numériques).
+- ❓ Quiz "Suis-je un utilisateur responsable de l’IA ?"
+- 🌎 Messages de sensibilisation contextuels, décalés ou chocs.
+
+---
+
+## ⚙️ Stack technique
+
+- HTML / CSS / JavaScript (Vanilla)
+- API GPT (optionnelle) ou prompts pré-générés
+- Design responsive
+- Images générées avec IA
+
+---
+
+## 💬 Exemple d'estimation affichée
+
+> **Ce prompt a consommé ≈ 1,2 Wh d’électricité, soit 0,5 g de CO₂.**  
+> C’est autant que 3 requêtes Google… ou 10 secondes d’aspirateur ! 🌍
+
+---
+
+## ✊ Pourquoi ce projet ?
+
+Parce que **l'IA ne remplacera jamais une planète vivable.**  
+GreenPrompt ne rejette pas l'IA, mais propose de la **réfléchir avec lucidité**.
+
+---
+
+## 🧑‍💻 Équipe
+
+Hackathon 2025 – Nom de l’équipe : `GreenPrompt`  
+Membres :
+- Manon Lafosse & Julia Grossi – Dev Front
+- Margot Tomatis & Fayrouz Saadaoui – Rédaction / contenu
+- Ryan Ouasti – Intégration / déploiement
+
+---
+
+## 🛠️ Pour aller plus loin (idées futures)
+
+- Connexion à une vraie API IA pour mesurer la conso réelle
+- Extension navigateur qui estime l’impact de vos prompts
+- Calculateur d’empreinte IA sur une journée ou un mois
+
+---
+# Pour lancer le projet :
+
+## Step 1: Cloner le repo
+`git clone <https://github.com/PathMan21/Green-Prompt.git>`
+
+## Step 2: Navigate to the project directory.
+`cd <Green-Prompt>`
+
+## Step 3: Install the necessary dependencies.
+`npm i`
+
+## Step 4: Start the development server with auto-reloading and an instant preview.
+`npm run dev`
