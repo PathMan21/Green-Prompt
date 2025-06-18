@@ -1,4 +1,4 @@
-# Step 1: Cloner le repo
+# Step 1: Cloner le repository
 git clone <https://github.com/PathMan21/Green-Prompt.git>
 
 # Step 2: Navigate to the project directory.
@@ -9,3 +9,6 @@ npm i
 
 # Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
+
+Présentation orale : 
+https://www.canva.com/design/DAGqsNRgag4/XdctM7sWmynXjgmbvDBKYA/edit?utm_content=DAGqsNRgag4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
